@@ -9,14 +9,14 @@ This project benchmarks seven deep learning object detection architectures acros
 **Three research questions:**
 1. How does fine-tuned detection performance vary across single-stage, transformer-based, and two-stage architectures at sub-meter aerial resolution?
 2. To what extent does tower detectability vary with physical size as a function of voltage class?
-3. How does the best-performing model's output compare to OSM-derived tower inventory at state scale? (Virginia pilot — pipeline built, inference not yet run)
+3. How does the best-performing model's output compare to OSM-derived tower inventory at state scale?
 
 
-**Single class:** `tower` = class index **0** throughout. This is critical — CVAT single-class task exports use index 0 but the raw export files sometimes contain class 1. Always verify and fix with `sed -i 's/^1 /0 /' *.txt` before integrating new annotations.
+**Single class:** `tower` = class index **0** throughout. This is critical since CVAT single-class task exports use index 0 but the raw export files sometimes contain class 1. Always verify and fix with `sed -i 's/^1 /0 /' *.txt` before integrating new annotations.
 
 **Voltage classes:** 345kV and 500kV  
 **Land use:** agriculture, forest, suburban (desert excluded from primary benchmark)  
-**Metadata:** `data/collected/annotated/tower_metadata.csv` — 798 rows, fully NLCD-verified
+**Metadata:** `data/collected/annotated/tower_metadata.csv` 798 rows, fully NLCD-verified
 
 ---
 
@@ -31,8 +31,6 @@ This project benchmarks seven deep learning object detection architectures acros
 | RetinaNet | Single-stage anchor-based | `outputs/weights/naip_retinanet/best.pt` |
 | Faster R-CNN | Two-stage | `outputs/weights/naip_faster_rcnn/best.pt` |
 | DETR | Transformer | `outputs/weights/naip_detr/best/` (HuggingFace format) |
-
-**RT-DETR was excluded:** Persistent NaN loss from deformable attention kernels on RTX 5060 Ti sm_120 Blackwell GPU. Not a configuration problem — a hardware/PyTorch nightly compatibility issue. See Hardware section.
 
 ---
 
@@ -123,31 +121,31 @@ thesis_infrastructure_detection/
 
 ---
 
-## Evaluation Pipeline — Run in This Order
+## Evaluation Pipeline
 
 ```bash
 conda activate thesis
 cd ~/projects/thesis_infrastructure_detection
 
-# 1. Per-image inference (all 7 models, GPU required, ~90 seconds)
+# 1. Per-image inference
 python src/evaluation/per_image_inference.py
 
-# 2. Corpus mAP (5 YOLO/FRCNN models, GPU required)
+# 2. Corpus mAP 
 python src/evaluation/finetune_eval.py
 
-# 3. Overall corridor bootstrap (CPU, <1 minute)
+# 3. Overall corridor bootstrap
 python src/evaluation/bootstrap_corridor.py
 
-# 4. Conditional eval — voltage and land use (GPU, ~15 minutes)
+# 4. Conditional evaluation (voltage and land use) 
 python src/evaluation/conditional_eval.py
 
-# 5. Conditional corridor bootstrap (CPU, <1 minute)
+# 5. Conditional corridor bootstrap
 python src/evaluation/bootstrap_corridor_conditional.py
 
-# 6. Raw predictions for PR curves (GPU, ~90 seconds)
+# 6. Raw predictions for PR curves 
 python src/evaluation/collect_raw_predictions.py
 
-# 7. PR curve data (CPU, fast)
+# 7. PR curve data 
 python src/evaluation/plot_pr_curves.py
 ```
 
