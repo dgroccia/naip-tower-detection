@@ -1,0 +1,8 @@
+path: /home/dante/projects/thesis_infrastructure_detection
+train: data/augmented/train/images
+val: data/splits/val/images
+test: data/splits/test/images
+
+nc: 1
+names:
+  0: tower

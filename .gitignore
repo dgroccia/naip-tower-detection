@@ -1,0 +1,67 @@
+# Large data files - store on Google Drive
+data/naip/
+data/augmented/
+data/nlcd_*.tif
+data/collected/osm_va_*.json
+data/collected/osm_va_*.geojson
+
+# Model weights - store on Google Drive
+outputs/weights/
+
+# Results CSVs - store on Google Drive
+outputs/results/
+
+# Figures - store on Google Drive
+outputs/figures/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+dist/
+build/
+*.so
+.Python
+env/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# WSL artifacts
+*.swp
+*.swo
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Logs
+*.log
+nohup.out
+overnight_log.txt
+eval_log.txt
+
+# Temporary
+*.tmp
+*.temp
+
+# Loose project-root files
+*.pt
+runs/
+*.sh
+logs/
+.claude/
+CLAUDE.md
+
+# Windows NTFS alternate-data-stream artifacts (from /mnt/c access)
+*:Zone.Identifier
