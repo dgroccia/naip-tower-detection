@@ -11,16 +11,6 @@ This project benchmarks seven deep learning object detection architectures acros
 2. To what extent does tower detectability vary with physical size as a function of voltage class?
 3. How does the best-performing model's output compare to OSM-derived tower inventory at state scale? (Virginia pilot — pipeline built, inference not yet run)
 
----
-
-## Dataset Summary
-
-| Split | Images | Instances | States |
-|---|---|---|---|
-| Train (base) | 288 | 418 | TX, TN, WV, GA, NY |
-| Train (augmented) | 9,670 | ~14,000 | same |
-| Validation | 67 | 87 | TX, TN, WV |
-| Test (expanded) | 461 | 839 | TX, TN, WV, GA, NY, AZ, NM |
 
 **Single class:** `tower` = class index **0** throughout. This is critical — CVAT single-class task exports use index 0 but the raw export files sometimes contain class 1. Always verify and fix with `sed -i 's/^1 /0 /' *.txt` before integrating new annotations.
 
